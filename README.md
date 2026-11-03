@@ -2,31 +2,57 @@
 
 > Her freedom should never come with fear.
 
-SheShield SOS is an advanced, privacy-first women's safety platform for Android. It covers the complete safety lifecycle: **planning safer routes before travel, triggering silent SOS alerts during emergencies (with offline P2P mesh capability), and preserving tamper-evident encrypted evidence and legal complaint generation afterwards.**
+SheShield SOS is an advanced, privacy-first women's safety platform for Android. It covers the complete safety lifecycle: **planning safer routes before travel, triggering silent SOS alerts during emergencies (with offline Bluetooth mesh and multi-hop relay capabilities), and preserving tamper-evident encrypted evidence and legal complaint generation afterwards.**
 
-Built for **recHERsion 2026** (Women's Safety Problem Statement). Native Android, Kotlin, Jetpack Compose, Supabase cloud sync (`rlcnukaqzawzrhtqqegd`), and Offline P2P Mesh networking.
+Built for **recHERsion 2026** (Women's Safety Problem Statement). Native Android, Kotlin, Jetpack Compose, Supabase cloud sync (`rlcnukaqzawzrhtqqegd`), and offline P2P Mesh networking.
 
 ---
 
-## Complete Feature Directory & App Screens
+## 🚨 Key Features
 
-| Screen / Feature | Component / File | Description |
-|---|---|---|
-| **Authentication** | [`AuthScreen.kt`](file:///app/src/main/java/com/example/sheshield/ui/AuthScreen.kt), [`SupabaseAuthManager.kt`](file:///app/src/main/java/com/example/sheshield/data/supabase/SupabaseAuthManager.kt) | Secure login & sign-up via Supabase backend (Project ID: `rlcnukaqzawzrhtqqegd`). |
-| **Onboarding** | [`OnboardingScreen.kt`](file:///app/src/main/java/com/example/sheshield/ui/OnboardingScreen.kt) | First-launch guide explaining critical permissions (Location, SMS, Microphone, Notifications). |
-| **Home Dashboard** | [`MainActivity.kt`](file:///app/src/main/java/com/example/sheshield/MainActivity.kt), [`SheShieldApp.kt`](file:///app/src/main/java/com/example/sheshield/SheShieldApp.kt) | Central hub with quick access to SOS, route planning, vault, complaints, and helplines. |
-| **Trip Planner & Routing** | [`PlanTripScreen.kt`](file:///app/src/main/java/com/example/sheshield/ui/PlanTripScreen.kt), [`RoutingClient.kt`](file:///app/src/main/java/com/example/sheshield/data/RoutingClient.kt) | OSRM route selection, safety scoring (0-100), transport mode selection (cab, auto, metro, walking), and traveling-alone state. |
-| **Safety Analyzer** | [`RouteAnalyzer.kt`](file:///app/src/main/java/com/example/sheshield/data/RouteAnalyzer.kt), [`SafetyScorer.kt`](file:///app/src/main/java/com/example/sheshield/data/SafetyScorer.kt) | Evaluates street lighting, commercial activity, police/hospitals, isolated stretches, and community reports. |
-| **Silent SOS & Sensors** | [`SosService.kt`](file:///app/src/main/java/com/example/sheshield/service/SosService.kt), [`ShakeDetector.kt`](file:///app/src/main/java/com/example/sheshield/service/ShakeDetector.kt) | Foreground service triggered via 3x shake, SOS button, widget, or quick settings tile. Sends SMS updates every 60s with live Google Maps link. |
-| **Audio Churn Recorder** | [`SosService.kt`](file:///app/src/main/java/com/example/sheshield/service/SosService.kt) | Automatic background 30-second audio chunk recording during active SOS. |
-| **P2P Mesh Network** | [`NearbyManager.kt`](file:///app/src/main/java/com/example/sheshield/service/NearbyManager.kt), [`WalLog.kt`](file:///app/src/main/java/com/example/sheshield/data/p2p/WalLog.kt) | Offline peer-to-peer message relaying using Write-Ahead Log and Hybrid Logical Clocks (`HlcTimestamp`) during cellular blackouts. |
-| **Active SOS Alerts** | [`SosAlertsScreen.kt`](file:///app/src/main/java/com/example/sheshield/ui/SosAlertsScreen.kt), [`IncidentStore.kt`](file:///app/src/main/java/com/example/sheshield/data/IncidentStore.kt) | Live tracking of emergency triggers, active alerts, and incident history logs. |
-| **Encrypted Evidence Vault** | [`VaultScreen.kt`](file:///app/src/main/java/com/example/sheshield/ui/VaultScreen.kt), [`Crypto.kt`](file:///app/src/main/java/com/example/sheshield/data/Crypto.kt) | PIN-protected AES-256-GCM file encryption backed by Android Keystore with SHA-256 integrity fingerprints. |
-| **Legal Complaint Builder** | [`ComplaintScreen.kt`](file:///app/src/main/java/com/example/sheshield/ui/ComplaintScreen.kt), [`ComplaintPdf.kt`](file:///app/src/main/java/com/example/sheshield/data/ComplaintPdf.kt) | Automated SHO complaint letter generator with embedded location points, evidence fingerprints, and PDF export. |
-| **Emergency Helplines** | [`HelplinesScreen.kt`](file:///app/src/main/java/com/example/sheshield/ui/HelplinesScreen.kt) | One-tap dialing for 112 (Emergency), 1091 (Women Helpline), 181 (Domestic Abuse), and 1930 (Cybercrime). |
-| **Trusted Contacts** | [`ContactsScreen.kt`](file:///app/src/main/java/com/example/sheshield/ui/ContactsScreen.kt), [`ContactStore.kt`](file:///app/src/main/java/com/example/sheshield/data/ContactStore.kt) | Managing up to 5 emergency SMS contacts. |
-| **Cloud Sync Worker** | [`CloudSyncWorker.kt`](file:///app/src/main/java/com/example/sheshield/data/supabase/CloudSyncWorker.kt), [`CloudRepository.kt`](file:///app/src/main/java/com/example/sheshield/data/supabase/CloudRepository.kt) | Background synchronization with Supabase backend (`rlcnukaqzawzrhtqqegd`). |
-| **Widgets & Quick Tiles** | [`SosWidgetProvider.kt`](file:///app/src/main/java/com/example/sheshield/widget/SosWidgetProvider.kt), [`SosTileService.kt`](file:///app/src/main/java/com/example/sheshield/service/SosTileService.kt) | Home screen SOS app widget and Quick Settings tile for instant emergency activation. |
+- **SOS Alerts:** Quickly send emergency alerts when feeling unsafe.
+- **Cloud Sync:** Synchronize alerts and incidents through Supabase when internet is available (`rlcnukaqzawzrhtqqegd`).
+- **SMS Fallback:** Send alerts through cellular networks when supported.
+- **Bluetooth Mesh:** Relay emergency messages between nearby devices without requiring internet or a SIM on every device.
+- **Multi-Hop Relay:** Forward SOS messages through participating devices across intermediate nodes.
+- **Gateway Sync:** Forward offline alerts to Supabase through an internet-connected gateway device.
+- **Alert Queueing:** Store pending alerts in a Write-Ahead Log (`WalLog`) until a communication path becomes available.
+- **Duplicate Suppression:** Prevent repeated processing of the same message using Hybrid Logical Clocks (`HlcTimestamp`).
+- **Safe-Route Planner:** OSRM & Overpass API route ranking based on lighting, commercial activity, police/hospitals, and crowdsourced community warnings.
+- **Encrypted Evidence Vault:** AES-256-GCM file encryption backed by Android Keystore with SHA-256 integrity fingerprints, locked with a hashed 4-digit PIN.
+- **Legal Complaint Builder:** Automated SHO complaint letter generator with embedded map links, evidence fingerprints, and PDF export (`ComplaintPdf`).
+- **Widgets & Quick Tiles:** Home screen SOS AppWidget and Quick Settings tile for instant emergency activation.
+
+---
+
+## 📡 Three Communication Methods
+
+### 1. ☁️ Cloud Synchronization
+- Requires an internet connection.
+- Sends emergency alerts and incident data to Supabase (`rlcnukaqzawzrhtqqegd`).
+- Enables real-time synchronization with the configured emergency dashboard.
+
+### 2. 📩 SMS Fallback
+- Requires cellular coverage and a working SIM.
+- Sends emergency messages and GPS location links through the mobile network.
+- Useful when mobile data or Wi-Fi is unavailable but cellular SMS service works.
+
+### 3. 🔵 Bluetooth Mesh & Multi-Hop Relay
+- Requires Bluetooth and compatible nearby devices running the relay functionality (`NearbyManager`).
+- Relays SOS messages between participating devices without requiring internet on every device.
+- **Multi-Hop Relay:** Automatically forwards emergency messages through intermediate participating nodes.
+- **Gateway Sync:** Forwards offline alerts toward an internet-connected gateway device, which synchronizes them with Supabase.
+- **Queueing & Deduplication:** Queues pending messages in a Write-Ahead Log (`WalLog`) and suppresses duplicate transmissions via Hybrid Logical Clocks (`HlcTimestamp`).
+
+---
+
+## The Solution: Before, During, After
+
+| Stage | What SheShield SOS does |
+|---|---|
+| **Before** | Explainable safe-route planner with OSRM & Overpass API. Ranks alternative routes (0-100 safety score), highlights street lighting, commercial activity, police/hospitals, and crowdsourced community warnings. |
+| **During** | Silent SOS triggered via triple-shake detection, home screen widget, quick-settings tile, or SOS button. Broadcasts live GPS location via SMS every 60s, records encrypted audio chunks in the background, and coordinates via Bluetooth Mesh & Multi-Hop Relay when offline. |
+| **After** | Encrypted Evidence Vault (AES-256-GCM backed by Android Keystore) with SHA-256 integrity fingerprints. Automated legal complaint builder exports ready-to-file PDF documents. |
 
 ---
 
@@ -58,8 +84,9 @@ flowchart TB
     subgraph CoreServices["Background Services & Sensors"]
         Service["SosService (Foreground)"]
         Shake["ShakeDetector (Accelerometer)"]
-        Sms["SmsHelper (Network SMS)"]
-        P2P["NearbyManager & WAL Mesh"]
+        Sms["SmsHelper (Cellular SMS)"]
+        P2P["NearbyManager & Multi-Hop Bluetooth Mesh"]
+        WAL["WalLog & HlcTimestamp (Queueing & Deduplication)"]
         Rec["MediaRecorder (30s Chunks)"]
         Tile["SosTileService & WidgetProvider"]
     end
@@ -77,9 +104,11 @@ flowchart TB
     Plan --> RoutingClient["RoutingClient & RouteAnalyzer"]
     Service --> Sms
     Service --> P2P
+    P2P --> WAL
     Service --> Rec --> Incidents
     Incidents --> Crypto
     Incidents --> Supabase
+    P2P -.->|"Gateway Sync"| Supabase
     Vault --> Incidents
     Complaint --> Incidents
 ```
@@ -120,7 +149,7 @@ com/example/sheshield/
 │   │   ├── HlcTimestamp.kt       # Hybrid Logical Clocks for P2P sync
 │   │   ├── MessageQueueManager.kt# P2P queue manager
 │   │   ├── MessageTrustState.kt  # Trust state enum
-│   │   ├── P2pMessage.kt         # P2P message data model
+│   │   ├── P2pMessage.kt         # P2p message data model
 │   │   ├── PeerTrustStore.kt     # Peer trust management
 │   │   └── WalLog.kt             # Write-Ahead Log for offline messages
 │   └── supabase/                 # Cloud integration
@@ -158,7 +187,7 @@ com/example/sheshield/
 
 - **UI & Architecture:** Kotlin, Jetpack Compose, Material 3, Navigation Compose, AndroidViewModel
 - **Cloud & Auth:** Supabase (Project ID: `rlcnukaqzawzrhtqqegd`), WorkManager (`CloudSyncWorker`)
-- **Offline Mesh:** Android Nearby Connections API, Write-Ahead Log (`WalLog`), Hybrid Logical Clocks (`HlcTimestamp`)
+- **Offline Mesh:** Android Nearby Connections API, Write-Ahead Log (`WalLog`), Hybrid Logical Clocks (`HlcTimestamp`), Multi-Hop Relay
 - **Security:** Android Keystore, AES-256-GCM encryption, SHA-256 fingerprinting, Salted PIN hashing
 - **Sensors & Hardware:** Foreground Services, Accelerometer (`ShakeDetector`), `MediaRecorder`, `SmsManager`
 - **Maps & Routing:** osmdroid, OSRM API, Overpass API
