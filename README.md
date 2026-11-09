@@ -65,10 +65,11 @@ Built for **recHERsion 2026** (Women's Safety Problem Statement). Native Android
 
 | Ranked Routes & Warnings | Legal Complaint | Emergency Helplines |  |
 |---|---|---|---|
-| <img src="docs/screenshots/safest route plan.jpg" width="180"> | <img src="docs/screenshots/06-complaint.jpeg" width="180"> | <img src="docs/screenshots/Helplines.jpg" width="180"> ||
+| <img src="docs/screenshots/safest route plan.jpg" width="180"> | <img src="docs/screenshots/06-complaint.jpeg" width="180"> | <img src="docs/screenshots/Helplines.jpg" width="180"> | |
 
 ### Advanced Workflows & P2P Mesh
 | SOS Alerts | P2P Multi-Hop Relay | P2P Emergency Resolution |
+|---|---|---|
 | <img src="docs/screenshots/sos alerts.jpg" width="150"> | <img src="docs/screenshots/describing p2p nd hop relay after triggering from another device who dot have my current device as my trusted contact.jpg" width="150"> | <img src="docs/screenshots/p2p when unknown person is safe now after emergency is resolved.jpg" width="150"> |
 
 ---
