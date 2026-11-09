@@ -208,4 +208,4 @@ com/example/sheshield/
 3. Connect a physical Android device (sensors, microphone, SMS, and Nearby Connections require real hardware).
 4. Run the app and grant required permissions.
 
-Built for **recHERsion 2026** (SheShield SOS).
+
